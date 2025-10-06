@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: fct_price_snapshots
+    description: "Tabla de hechos con snapshots de precios de criptomonedas."
+    columns:
+      - name: snapshot_timestamp
+        tests:
+          - not_null
+      - name: coin_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_coins')
+                field: coin_id
+      - name: price_usd
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: ">= 0"
+
+  - name: dim_coins
+    description: "Tabla de dimensión con información de cada criptomoneda."
+    columns:
+      - name: coin_id
+        tests:
+          - unique
+          - not_null

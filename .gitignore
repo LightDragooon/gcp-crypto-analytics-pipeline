@@ -1,0 +1,98 @@
+# #########################
+# Terraform
+# #########################
+# Archivos de estado locales de Terraform. ¡Contienen información sensible!
+*.tfstate
+*.tfstate.backup
+
+# Archivos de planes de ejecución
+*.tfplan
+
+# Directorio .terraform que contiene los plugins y módulos de los proveedores
+.terraform/
+
+# Archivos de crash logs de Terraform
+crash.log
+crash.*.log
+
+# Excluir archivos .tfvars que contengan secretos o configuraciones locales.
+# Es buena práctica mantener las variables de producción en un sistema de CI/CD.
+*.auto.tfvars
+*.tfvars.local
+# Descomenta la siguiente línea si quieres ignorar todos los archivos .tfvars
+# *.tfvars
+
+
+# #########################
+# Python / Entorno Virtual
+# #########################
+# El directorio completo del entorno virtual que creamos
+dbt-env/
+
+# Archivos de bytecode y caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Directorios de instalación de paquetes de Python
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Archivos de entorno que pueden contener secretos
+.env
+.venv
+env/
+venv/
+
+
+# #########################
+# dbt (Data Build Tool)
+# #########################
+# El directorio "dbt_packages" contiene las dependencias descargadas con "dbt deps"
+dbt_packages/
+
+# El directorio "logs" contiene los logs de las ejecuciones de dbt
+logs/
+
+# El directorio "target" es donde dbt compila el código SQL y guarda los artefactos de ejecución
+target/
+
+
+# #########################
+# Archivos Sensibles y del Sistema Operativo
+# #########################
+# Claves de Cuentas de Servicio de GCP u otras credenciales. ¡NUNCA SUBIR!
+*.json
+*.pem
+
+# Archivos del sistema operativo macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Archivos del sistema operativo Windows
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+
+# Archivos de configuración de IDEs
+.idea/
+.vscode/
+*.swp

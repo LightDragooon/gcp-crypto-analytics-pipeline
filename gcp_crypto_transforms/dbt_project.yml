@@ -1,0 +1,47 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'gcp_crypto_transforms'
+version: '1.0.0'
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'gcp_crypto_transforms'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+# Variables
+vars:
+  ml_model_name: 'price_forecast_model'
+
+# Configuring models
+models:
+  gcp_crypto_transforms:
+    marts:
+      +materialized: table
+      fct_training_data:
+        +post-hook:
+          - |
+            CREATE OR REPLACE MODEL `{{ target.project }}.{{ target.dataset }}.{{ var('ml_model_name') }}`
+            OPTIONS(
+              model_type='ARIMA_PLUS',
+              time_series_timestamp_col='snapshot_timestamp',
+              time_series_data_col='price_usd',
+              time_series_id_col='coin_id'
+            ) AS
+            SELECT
+              *
+            FROM
+              {{ this }};

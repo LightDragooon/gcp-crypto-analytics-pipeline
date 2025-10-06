@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw_data
+    description: "Fuente de datos crudos desde el pipeline de ingesta en BigQuery."
+    # El nombre de tu dataset en BigQuery
+    schema: crypto_data_warehouse 
+    tables:
+      - name: raw_price_data
+        description: "Tabla de aterrizaje con payloads JSON y timestamp de ingesta."
